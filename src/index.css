@@ -1,0 +1,10 @@
+.card {
+  display: flex;
+  gap: 50px
+}
+
+.description-box {
+  display: flex;
+  flex-direction: column;
+  gap: 3%;
+}

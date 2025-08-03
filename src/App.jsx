@@ -17,9 +17,24 @@ Breve biografia (biography)
 Obiettivo: Caricare e mostrare i politici in un’interfaccia chiara e leggibile.
 
 */
+import { useState, useEffect } from "react"
 
 function App() {
 
+  const [data, setData] = useState(null)
+
+  async function fetchPoliticiansData() {
+    try {
+      const res = await axios.get("http://localhost:3333/politicians")
+      setData(res.data)
+    }
+    catch {
+      console.error("errore durante il caricamento dei dati")
+    }
+
+  }
+
+  useEffect(fetchPoliticiansData, [])
 
   return (
     <>

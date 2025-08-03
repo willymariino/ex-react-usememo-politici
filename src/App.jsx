@@ -19,6 +19,7 @@ Obiettivo: Caricare e mostrare i politici in un’interfaccia chiara e leggibile
 */
 import { useState, useEffect } from "react"
 import axios from "axios"
+import PoliticiansCard from "./components/PoliticiansCard"
 
 async function fetchPoliticiansData(setData) {
   try {
@@ -43,6 +44,11 @@ function App() {
   return (
     <>
 
+      {data.map((politician) => (
+
+        <PoliticiansCard key={politician.id} politician={politician} />
+
+      ))}
 
 
     </>

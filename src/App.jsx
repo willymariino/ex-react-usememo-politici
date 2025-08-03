@@ -18,23 +18,27 @@ Obiettivo: Caricare e mostrare i politici in un’interfaccia chiara e leggibile
 
 */
 import { useState, useEffect } from "react"
+import axios from "axios"
+
+async function fetchPoliticiansData(setData) {
+  try {
+    const res = await axios.get("http://localhost:3333/politicians")
+    setData(res.data)
+  }
+  catch {
+    console.error("errore nel caricamento dei dati")
+  }
+}
 
 function App() {
-
   const [data, setData] = useState(null)
 
-  async function fetchPoliticiansData() {
-    try {
-      const res = await axios.get("http://localhost:3333/politicians")
-      setData(res.data)
-    }
-    catch {
-      console.error("errore durante il caricamento dei dati")
-    }
+  useEffect(() => {
 
-  }
+    fetchPoliticiansData(setData) // invocazione della funzione dei politici
 
-  useEffect(fetchPoliticiansData, [])
+  }, [])
+
 
   return (
     <>

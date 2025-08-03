@@ -32,7 +32,7 @@ async function fetchPoliticiansData(setData) {
 }
 
 function App() {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState([])
 
   useEffect(() => {
 
@@ -44,12 +44,15 @@ function App() {
   return (
     <>
 
-      {data.map((politician) => (
+      <div className="card-container">
 
-        <PoliticiansCard key={politician.id} politician={politician} />
+        {data.map((politician) => (
 
-      ))}
+          <PoliticiansCard key={politician.id} politician={politician} />
 
+        ))}
+
+      </div>
 
     </>
   )

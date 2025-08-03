@@ -8,3 +8,14 @@
   flex-direction: column;
   gap: 3%;
 }
+
+.politician-image {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}

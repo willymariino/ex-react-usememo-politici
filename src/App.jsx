@@ -17,7 +17,7 @@ Breve biografia (biography)
 Obiettivo: Caricare e mostrare i politici in un’interfaccia chiara e leggibile.
 
 */
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import axios from "axios"
 import PoliticiansCard from "./components/PoliticiansCard"
 
@@ -33,6 +33,7 @@ async function fetchPoliticiansData(setData) {
 
 function App() {
   const [data, setData] = useState([])
+  const [searchText, setSearchText] = useState("") // stato che contiene la lista dei politici filtrati, inizalmente tutti i politici
 
   useEffect(() => {
 
@@ -40,13 +41,32 @@ function App() {
 
   }, [])
 
+  const filteredPoliticians = useMemo(() => {
+
+    return data.filter(politician =>
+      politician.name.includes(searchText) ||
+      politician.biography.includes(searchText)
+    )
+
+  }, [data, searchText])
 
   return (
     <>
 
+      <p>
+        cerca il politico:
+        <input className="search-bar"
+          type="text"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          placeholder="cerca per nome o biografia"
+        />
+      </p>
+
+
       <div className="card-container">
 
-        {data.map((politician) => (
+        {filteredPoliticians.map((politician) => (
 
           <PoliticiansCard key={politician.id} politician={politician} />
 
@@ -59,3 +79,7 @@ function App() {
 }
 
 export default App
+
+
+
+

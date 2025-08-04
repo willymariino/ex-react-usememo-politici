@@ -35,9 +35,12 @@ import { useState, useEffect, useMemo } from "react"
 import axios from "axios"
 import PoliticiansCard from "./components/PoliticiansCard"
 
+// Funzione asincrona per recuperare i dati dei politici dall'API e salvarli nello stato
 async function fetchPoliticiansData(setData) {
   try {
+    // Effettua la chiamata GET all'endpoint specificato
     const res = await axios.get("http://localhost:3333/politicians")
+    // Salva i dati ottenuti nello stato React
     setData(res.data)
   }
   catch {
@@ -46,27 +49,29 @@ async function fetchPoliticiansData(setData) {
 }
 
 function App() {
+  // Stato che contiene la lista completa dei politici
   const [data, setData] = useState([])
-  const [searchText, setSearchText] = useState("") // stato che contiene la lista dei politici filtrati, inizalmente tutti i politici
+  // Stato che contiene il testo inserito dall'utente per la ricerca
+  const [searchText, setSearchText] = useState("")
 
+  // Effettua il fetch dei dati solo al primo render del componente (componentDidMount)
   useEffect(() => {
-
     fetchPoliticiansData(setData) // invocazione della funzione dei politici
-
   }, [])
 
+  // Crea una versione filtrata della lista dei politici, aggiornata solo quando cambiano 'data' o 'searchText'
+  // useMemo evita ricalcoli inutili se i valori di dipendenza non cambiano
   const filteredPoliticians = useMemo(() => {
-
+    // Filtra i politici per nome o biografia che includano il testo cercato (case-insensitive)
     return data.filter(politician =>
       politician.name.toLowerCase().includes(searchText.toLowerCase()) ||
       politician.biography.toLowerCase().includes(searchText.toLowerCase())
     )
-
   }, [data, searchText])
 
   return (
     <>
-
+      {/* Campo di ricerca per filtrare i politici per nome o biografia */}
       <p>
         <strong> cerca il politico:</strong>
         <input className="search-bar"
@@ -77,17 +82,13 @@ function App() {
         />
       </p>
 
-
+      {/* Container delle card dei politici */}
       <div className="card-container">
-
+        {/* Mappa la lista filtrata e crea una card per ogni politico */}
         {filteredPoliticians.map((politician) => (
-
           <PoliticiansCard key={politician.id} politician={politician} />
-
         ))}
-
       </div>
-
     </>
   )
 }

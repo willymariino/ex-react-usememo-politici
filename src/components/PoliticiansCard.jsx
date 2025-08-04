@@ -1,3 +1,5 @@
+import { memo } from "react"
+
 function PoliticiansCard({ politician }) {
 
     return (
@@ -11,7 +13,7 @@ function PoliticiansCard({ politician }) {
             <div className="description-box">
 
                 <p>name: {politician.name}</p>
-                <p>postion: {politician.position}</p>
+                <p>position: {politician.position}</p>
                 <p>biography: {politician.biography}</p>
 
             </div>
@@ -23,4 +25,4 @@ function PoliticiansCard({ politician }) {
     )
 }
 
-export default PoliticiansCard
+export default memo(PoliticiansCard)

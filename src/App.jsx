@@ -54,7 +54,7 @@ function App() {
     <>
 
       <p>
-        cerca il politico:
+        <strong> cerca il politico:</strong>
         <input className="search-bar"
           type="text"
           value={searchText}

@@ -6,7 +6,6 @@ function PoliticiansCard({ politician }) {
 
             <div className="image-container">
                 <img src={politician.image} className="politician-image" alt={politician.name} />
-
             </div>
 
             <div className="description-box">

@@ -44,8 +44,8 @@ function App() {
   const filteredPoliticians = useMemo(() => {
 
     return data.filter(politician =>
-      politician.name.includes(searchText) ||
-      politician.biography.includes(searchText)
+      politician.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      politician.biography.toLowerCase().includes(searchText.toLowerCase())
     )
 
   }, [data, searchText])
